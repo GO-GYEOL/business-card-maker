@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.module.css";
+import App from "./App";
+import AuthService from "./components/service/auth_service";
+import ImageUploader from "./components/service/image_uploader";
+import ImageFileInput from "./components/image_file_input/image_file_input";
+import CardRepository from "./components/service/card_repository";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+const authService = new AuthService();
+const imageUploader = new ImageUploader();
+const cardRepository = new CardRepository();
+const FileInput = (props) => (
+  <ImageFileInput {...props} imageUploader={imageUploader} />
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App authService={authService} FileInput={FileInput} cardRepository={cardRepository}/>
+  </React.StrictMode>
+);
